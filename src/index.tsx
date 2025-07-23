@@ -1,12 +1,12 @@
-import { FC, useEffect, useRef } from "react";
-import { ZPLParser } from "zpl-js/src/core/parser";
-import { ZPLRenderer } from "zpl-js/src/core/renderer";
+import { FC, useEffect, useRef } from 'react';
+import { ZPLParser } from 'zpl-js/src/core/parser';
+import { ZPLRenderer } from 'zpl-js/src/core/renderer';
 
 type ZplRendererProps = {
   zpl: string;
   width?: number;
   height?: number;
-  "data-component"?: string;
+  'data-component'?: string;
 } & React.DetailedHTMLProps<
   React.CanvasHTMLAttributes<HTMLCanvasElement>,
   HTMLCanvasElement
@@ -16,7 +16,7 @@ const ZplRenderer: FC<ZplRendererProps> = ({
   zpl,
   width = 400,
   height = 600,
-  "data-component": dataComponent = "ZplRenderer",
+  'data-component': dataComponent = 'ZplRenderer',
   ...props
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -40,12 +40,12 @@ const ZplRenderer: FC<ZplRendererProps> = ({
         canvasRef.current.style.height = canvasHeight;
 
         // Apply responsive CSS while maintaining aspect ratio
-        canvasRef.current.style.maxWidth = "100%";
-        canvasRef.current.style.maxHeight = "100%";
-        canvasRef.current.style.objectFit = "contain";
+        canvasRef.current.style.maxWidth = '100%';
+        canvasRef.current.style.maxHeight = '100%';
+        canvasRef.current.style.objectFit = 'contain';
       }
     } catch (error) {
-      console.error("Error rendering ZPL:", error);
+      console.error('Error rendering ZPL:', error);
     }
   }, [zpl, width, height]);
 
