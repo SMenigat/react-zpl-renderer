@@ -26,7 +26,18 @@ const ZplRenderer: FC<ZplRendererProps> = ({
       const parser = new ZPLParser(zpl);
       const parsedZpl = parser.parse();
 
-      if (parsedZpl.label) {
+      if (parsedZpl.label && canvasRef.current) {
+        // Clear the canvas before rendering
+        const ctx = canvasRef.current.getContext("2d");
+        if (ctx) {
+          ctx.clearRect(
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height
+          );
+        }
+
         const zplRenderer = new ZPLRenderer(canvasRef.current);
         zplRenderer.render(parsedZpl.label);
 
@@ -35,6 +46,8 @@ const ZplRenderer: FC<ZplRendererProps> = ({
         const canvasHeight = `${height}px`;
 
         // Set actual canvas dimensions
+        canvasRef.current.width = width;
+        canvasRef.current.height = height;
         canvasRef.current.style.width = canvasWidth;
         canvasRef.current.style.height = canvasHeight;
 
@@ -48,7 +61,15 @@ const ZplRenderer: FC<ZplRendererProps> = ({
     }
   }, [zpl, width, height]);
 
-  return <canvas ref={canvasRef} data-component={dataComponent} {...props} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      data-component={dataComponent}
+      width={width}
+      height={height}
+      {...props}
+    />
+  );
 };
 
 export default ZplRenderer;
