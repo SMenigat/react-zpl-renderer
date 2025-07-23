@@ -13,7 +13,7 @@ const config = [
         file: "dist/index.cjs.js",
         format: "cjs",
         sourcemap: true,
-        exports: "named",
+        exports: "default",
         inlineDynamicImports: true,
       },
       {
@@ -24,22 +24,20 @@ const config = [
       },
     ],
     plugins: [
-      // PeerDepsExternal plugin to externalize peer dependencies only
-      peerDepsExternal({
-        packageJsonPath: "./package.json",
-      }),
-      // Resolve plugin to handle module resolution including node_modules
+      // Use peerDepsExternal to automatically externalize peer dependencies
+      peerDepsExternal(),
+      // Resolve plugin with minimal resolution
       resolve({
         browser: true,
         preferBuiltins: false,
-        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
       }),
-      // CommonJS plugin to handle CommonJS modules
+      // CommonJS plugin
       commonjs(),
       // Babel plugin to transform TypeScript and JSX
       babel({
         babelHelpers: "bundled",
-        exclude: /node_modules\/(?!zpl-js)/, // Exclude node_modules except zpl-js
+        exclude: /node_modules\/(?!zpl-js)/,
         extensions: [".js", ".jsx", ".ts", ".tsx"],
         presets: [
           [
@@ -47,7 +45,8 @@ const config = [
             {
               modules: false,
               targets: {
-                browsers: ["defaults"],
+                node: "14",
+                browsers: ["> 0.25%", "not dead"],
               },
             },
           ],
@@ -61,8 +60,20 @@ const config = [
         ],
       }),
     ],
-    // Only treat React as external, bundle everything else including zpl-js
-    external: ["react", "react-dom"],
+    // Additional explicit externalization as fallback
+    external: (id) => {
+      if (
+        id === "react" ||
+        id === "react-dom" ||
+        id === "react/jsx-runtime" ||
+        id === "react/jsx-dev-runtime" ||
+        id.startsWith("react/") ||
+        id.startsWith("react-dom/")
+      ) {
+        return true;
+      }
+      return false;
+    },
   },
   // Type declarations build configuration
   {

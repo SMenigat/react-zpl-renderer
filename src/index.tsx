@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ZPLParser } from "zpl-js/src/core/parser";
 import { ZPLRenderer } from "zpl-js/src/core/renderer";
 
@@ -21,36 +21,39 @@ const ZplRenderer: React.FC<ZplRendererProps> = ({
   "data-component": dataComponent = "ZplRenderer",
   ...props
 }) => {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // Only run in browser environment
+    if (typeof window === "undefined" || !canvasRef.current) {
+      return;
+    }
+
     try {
-      if (canvasRef.current) {
-        const parser = new ZPLParser(zpl);
-        const parsedZpl = parser.parse();
+      const parser = new ZPLParser(zpl);
+      const parsedZpl = parser.parse();
 
-        if (parsedZpl.label) {
-          const zplRenderer = new ZPLRenderer(canvasRef.current);
-          zplRenderer.render(parsedZpl.label);
+      if (parsedZpl.label) {
+        const zplRenderer = new ZPLRenderer(canvasRef.current);
+        zplRenderer.render(parsedZpl.label);
 
-          // Set the canvas dimensions based on label size and print density
-          const canvasWidth = `${labelWidthMM * printDensity}px`;
-          const canvasHeight = `${labelHeightMM * printDensity}px`;
+        // Set the canvas dimensions based on label size and print density
+        const canvasWidth = `${labelWidthMM * printDensity}px`;
+        const canvasHeight = `${labelHeightMM * printDensity}px`;
 
-          // Set actual canvas dimensions
-          canvasRef.current.style.width = canvasWidth;
-          canvasRef.current.style.height = canvasHeight;
+        // Set actual canvas dimensions
+        canvasRef.current.style.width = canvasWidth;
+        canvasRef.current.style.height = canvasHeight;
 
-          // Apply responsive CSS while maintaining aspect ratio
-          canvasRef.current.style.maxWidth = canvasWidth;
-          canvasRef.current.style.maxHeight = canvasHeight;
-          canvasRef.current.style.objectFit = "contain";
-        }
+        // Apply responsive CSS while maintaining aspect ratio
+        canvasRef.current.style.maxWidth = canvasWidth;
+        canvasRef.current.style.maxHeight = canvasHeight;
+        canvasRef.current.style.objectFit = "contain";
       }
     } catch (error) {
       console.error("Error rendering ZPL:", error);
     }
-  }, [zpl, canvasRef, printDensity, labelWidthMM, labelHeightMM]);
+  }, [zpl, printDensity, labelWidthMM, labelHeightMM]);
 
   return <canvas ref={canvasRef} data-component={dataComponent} {...props} />;
 };
