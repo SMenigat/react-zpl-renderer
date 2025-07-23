@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2015",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ES2020",
     "allowJs": true,
@@ -12,9 +12,12 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
+    "declaration": true,
+    "outDir": "dist",
     "jsx": "react-jsx",
     "downlevelIteration": true
   },
-  "include": ["src"]
+  "include": ["src", "node_modules/zpl-js/src"],
+  "exclude": ["dist", "node_modules", "!node_modules/zpl-js/src"]
 }
