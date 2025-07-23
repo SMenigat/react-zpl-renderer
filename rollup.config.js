@@ -1,22 +1,22 @@
-import babel from "@rollup/plugin-babel";
-import commonjs from "@rollup/plugin-commonjs";
-import resolve from "@rollup/plugin-node-resolve";
-import dts from "rollup-plugin-dts";
+import babel from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import dts from 'rollup-plugin-dts';
 
 const config = [
   {
-    input: "src/index.tsx",
+    input: 'src/index.tsx',
     output: [
       {
-        file: "dist/index.cjs.js",
-        format: "cjs",
+        file: 'dist/index.cjs.js',
+        format: 'cjs',
         sourcemap: true,
-        exports: "default",
+        exports: 'default',
         inlineDynamicImports: true,
       },
       {
-        file: "dist/index.esm.js",
-        format: "esm",
+        file: 'dist/index.esm.js',
+        format: 'esm',
         sourcemap: true,
         inlineDynamicImports: true,
       },
@@ -26,33 +26,33 @@ const config = [
       resolve({
         browser: true,
         preferBuiltins: false,
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       }),
       // CommonJS plugin
       commonjs(),
       // Babel plugin to transform TypeScript and JSX
       babel({
-        babelHelpers: "bundled",
+        babelHelpers: 'bundled',
         exclude: /node_modules\/(?!zpl-js)/,
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         presets: [
           [
-            "@babel/preset-env",
+            '@babel/preset-env',
             {
               modules: false,
               targets: {
-                node: "14",
-                browsers: ["> 0.25%", "not dead"],
+                node: '14',
+                browsers: ['> 0.25%', 'not dead'],
               },
             },
           ],
           [
-            "@babel/preset-react",
+            '@babel/preset-react',
             {
-              runtime: "automatic",
+              runtime: 'automatic',
             },
           ],
-          "@babel/preset-typescript",
+          '@babel/preset-typescript',
         ],
       }),
     ],
@@ -60,20 +60,20 @@ const config = [
     external: (id, parent, isResolved) => {
       // Always externalize React and related modules
       const reactModules = [
-        "react",
-        "react-dom",
-        "react/jsx-runtime",
-        "react/jsx-dev-runtime",
-        "react-dom/client",
-        "react-dom/server",
-        "react/index",
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+        'react-dom/client',
+        'react-dom/server',
+        'react/index',
       ];
 
       // Check exact matches and prefixes
       if (
         reactModules.includes(id) ||
-        id.startsWith("react/") ||
-        id.startsWith("react-dom/")
+        id.startsWith('react/') ||
+        id.startsWith('react-dom/')
       ) {
         return true;
       }
@@ -83,13 +83,13 @@ const config = [
   },
   // Type declarations build configuration
   {
-    input: "src/index.tsx",
+    input: 'src/index.tsx',
     output: {
-      file: "dist/index.d.ts",
-      format: "es",
+      file: 'dist/index.d.ts',
+      format: 'es',
     },
     plugins: [dts()],
-    external: ["react", "react-dom"],
+    external: ['react', 'react-dom'],
   },
 ];
 

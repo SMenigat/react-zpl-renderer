@@ -15,7 +15,7 @@ yarn add react-zpl-renderer
 ## Usage
 
 ```tsx
-import ZplRenderer from "react-zpl-renderer";
+import ZplRenderer from 'react-zpl-renderer';
 
 function MyComponent() {
   const zplCode = `
@@ -41,9 +41,9 @@ function MyComponent() {
 This library works with Next.js out of the box. For canvas-based components like this one, it's recommended to disable SSR:
 
 ```tsx
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
-const ZplRenderer = dynamic(() => import("react-zpl-renderer"), {
+const ZplRenderer = dynamic(() => import('react-zpl-renderer'), {
   ssr: false,
 });
 
