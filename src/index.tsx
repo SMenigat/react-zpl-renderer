@@ -27,27 +27,21 @@ const ZplRenderer: FC<ZplRendererProps> = ({
       const parsedZpl = parser.parse();
 
       if (parsedZpl.label && canvasRef.current) {
-        // Clear the canvas before rendering
+        // Clear the canvas before rendering using the props dimensions
         const ctx = canvasRef.current.getContext("2d");
         if (ctx) {
-          ctx.clearRect(
-            0,
-            0,
-            canvasRef.current.width,
-            canvasRef.current.height
-          );
+          ctx.clearRect(0, 0, width, height);
         }
 
+        // Render the ZPL content (this may modify canvas styles)
         const zplRenderer = new ZPLRenderer(canvasRef.current);
         zplRenderer.render(parsedZpl.label);
 
-        // Set the canvas dimensions in pixels
+        // Override/fix the canvas dimensions after rendering
         const canvasWidth = `${width}px`;
         const canvasHeight = `${height}px`;
 
         // Set actual canvas dimensions
-        canvasRef.current.width = width;
-        canvasRef.current.height = height;
         canvasRef.current.style.width = canvasWidth;
         canvasRef.current.style.height = canvasHeight;
 
