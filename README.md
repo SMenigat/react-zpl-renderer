@@ -22,23 +22,15 @@ function MyComponent() {
     ^XZ
   `;
 
-  return (
-    <ZplRenderer
-      zpl={zplCode}
-      printDensity={8}
-      labelWidthMM={100}
-      labelHeightMM={150}
-    />
-  );
+  return <ZplRenderer zpl={zplCode} width={400} height={600} />;
 }
 ```
 
 ## Props
 
 - `zpl` (string): The ZPL code to render
-- `printDensity` (6 | 8 | 12 | 24): Print density in dots per mm (default: 8)
-- `labelWidthMM` (number): Label width in millimeters (default: 100)
-- `labelHeightMM` (number): Label height in millimeters (default: 150)
+- `width` (number): Canvas width in pixels (default: 400)
+- `height` (number): Canvas height in pixels (default: 600)
 - `data-component` (string): Data attribute for testing (default: "ZplRenderer")
 - All other canvas HTML attributes are supported
 
@@ -60,13 +52,6 @@ function MyComponent() {
     ^XZ
   `;
 
-  return (
-    <ZplRenderer
-      zpl={zplCode}
-      printDensity={8}
-      labelWidthMM={100}
-      labelHeightMM={150}
-    />
-  );
+  return <ZplRenderer zpl={zplCode} width={400} height={600} />;
 }
 ```

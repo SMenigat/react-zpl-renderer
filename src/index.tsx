@@ -4,9 +4,8 @@ import { ZPLRenderer } from "zpl-js/src/core/renderer";
 
 type ZplRendererProps = {
   zpl: string;
-  printDensity?: 6 | 8 | 12 | 24;
-  labelWidthMM?: number;
-  labelHeightMM?: number;
+  width?: number;
+  height?: number;
   "data-component"?: string;
 } & React.DetailedHTMLProps<
   React.CanvasHTMLAttributes<HTMLCanvasElement>,
@@ -15,20 +14,14 @@ type ZplRendererProps = {
 
 const ZplRenderer: FC<ZplRendererProps> = ({
   zpl,
-  printDensity = 8,
-  labelWidthMM = 100,
-  labelHeightMM = 150,
+  width = 400,
+  height = 600,
   "data-component": dataComponent = "ZplRenderer",
   ...props
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    // Only run in browser environment
-    if (typeof window === "undefined" || !canvasRef.current) {
-      return;
-    }
-
     try {
       const parser = new ZPLParser(zpl);
       const parsedZpl = parser.parse();
@@ -37,9 +30,9 @@ const ZplRenderer: FC<ZplRendererProps> = ({
         const zplRenderer = new ZPLRenderer(canvasRef.current);
         zplRenderer.render(parsedZpl.label);
 
-        // Set the canvas dimensions based on label size and print density
-        const canvasWidth = `${labelWidthMM * printDensity}px`;
-        const canvasHeight = `${labelHeightMM * printDensity}px`;
+        // Set the canvas dimensions in pixels
+        const canvasWidth = `${width}px`;
+        const canvasHeight = `${height}px`;
 
         // Set actual canvas dimensions
         canvasRef.current.style.width = canvasWidth;
@@ -53,7 +46,7 @@ const ZplRenderer: FC<ZplRendererProps> = ({
     } catch (error) {
       console.error("Error rendering ZPL:", error);
     }
-  }, [zpl, printDensity, labelWidthMM, labelHeightMM]);
+  }, [zpl, width, height]);
 
   return <canvas ref={canvasRef} data-component={dataComponent} {...props} />;
 };
