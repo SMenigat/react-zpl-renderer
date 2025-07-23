@@ -3,7 +3,7 @@
   "description": "A React component for rendering ZPL (Zebra Programming Language) labels using zpl-js.",
   "author": "Samuel Menigat <samuel.menigat@gmail.com>",
   "license": "MIT",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -19,6 +19,18 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react",
+    "react-component",
+    "zpl",
+    "zebra",
+    "zebra-programming-language",
+    "label",
+    "label-printer",
+    "barcode",
+    "rendering",
+    "typescript"
   ],
   "scripts": {
     "build": "rimraf dist && rollup -c",
