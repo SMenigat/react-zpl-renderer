@@ -2,7 +2,7 @@
 
 Render ZPL label codes as canvas.
 
-This builds on top of the amazing ![zpl-js](https://github.com/tomoeste/zpl-js) library and offers a simplified component to just get raw ZPL code rendered onto your page. This repacks and internalizes `zpl-js` to simplify the usage even further.
+This builds on top of the amazing [zpl-js](https://github.com/tomoeste/zpl-js) library and offers a simplified component to just get raw ZPL code rendered onto your page. This repacks and internalizes `zpl-js` to simplify the usage even further.
 
 ## Installation
 
