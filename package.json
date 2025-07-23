@@ -3,7 +3,7 @@
   "description": "A React component for rendering ZPL (Zebra Programming Language) labels using zpl-js.",
   "author": "Samuel Menigat <samuel.menigat@gmail.com>",
   "license": "MIT",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -35,6 +35,8 @@
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "watch": "rollup -c -w",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
@@ -49,8 +51,10 @@
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-typescript": "^12.1.1",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "rollup": "^4.29.1",
     "rollup-plugin-dts": "^6.2.1",
