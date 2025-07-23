@@ -2,10 +2,8 @@ import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import dts from "rollup-plugin-dts";
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
 const config = [
-  // Main build configuration
   {
     input: "src/index.tsx",
     output: [
@@ -24,9 +22,7 @@ const config = [
       },
     ],
     plugins: [
-      // Use peerDepsExternal to automatically externalize peer dependencies
-      peerDepsExternal(),
-      // Resolve plugin with minimal resolution
+      // Resolve plugin - let it resolve everything except React
       resolve({
         browser: true,
         preferBuiltins: false,
@@ -60,18 +56,28 @@ const config = [
         ],
       }),
     ],
-    // Additional explicit externalization as fallback
-    external: (id) => {
+    // Comprehensive externalization to ensure React is never bundled
+    external: (id, parent, isResolved) => {
+      // Always externalize React and related modules
+      const reactModules = [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+        "react-dom/client",
+        "react-dom/server",
+        "react/index",
+      ];
+
+      // Check exact matches and prefixes
       if (
-        id === "react" ||
-        id === "react-dom" ||
-        id === "react/jsx-runtime" ||
-        id === "react/jsx-dev-runtime" ||
+        reactModules.includes(id) ||
         id.startsWith("react/") ||
         id.startsWith("react-dom/")
       ) {
         return true;
       }
+
       return false;
     },
   },

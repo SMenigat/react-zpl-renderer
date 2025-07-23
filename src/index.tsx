@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import { ZPLParser } from "zpl-js/src/core/parser";
 import { ZPLRenderer } from "zpl-js/src/core/renderer";
 
@@ -13,7 +13,7 @@ type ZplRendererProps = {
   HTMLCanvasElement
 >;
 
-const ZplRenderer: React.FC<ZplRendererProps> = ({
+const ZplRenderer: FC<ZplRendererProps> = ({
   zpl,
   printDensity = 8,
   labelWidthMM = 100,
@@ -46,8 +46,8 @@ const ZplRenderer: React.FC<ZplRendererProps> = ({
         canvasRef.current.style.height = canvasHeight;
 
         // Apply responsive CSS while maintaining aspect ratio
-        canvasRef.current.style.maxWidth = canvasWidth;
-        canvasRef.current.style.maxHeight = canvasHeight;
+        canvasRef.current.style.maxWidth = "100%";
+        canvasRef.current.style.maxHeight = "100%";
         canvasRef.current.style.objectFit = "contain";
       }
     } catch (error) {

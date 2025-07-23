@@ -1,6 +1,6 @@
 {
   "name": "react-zpl-renderer",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -39,7 +39,6 @@
     "rimraf": "^6.0.1",
     "rollup": "^4.29.1",
     "rollup-plugin-dts": "^6.2.1",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
     "tslib": "^2.8.1",
     "typescript": ">=3.0.0"
   },
