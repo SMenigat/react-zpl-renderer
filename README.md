@@ -1,6 +1,8 @@
 # react-zpl-renderer
 
-Render ZPL label codes as canvas
+Render ZPL label codes as canvas.
+
+This builds on top of the amazing ![zpl-js](https://github.com/tomoeste/zpl-js) library and offers a simplified component to just get raw ZPL code rendered onto your page. This repacks and internalizes `zpl-js` to simplify the usage even further.
 
 ## Installation
 
@@ -55,3 +57,7 @@ function MyComponent() {
   return <ZplRenderer zpl={zplCode} width={400} height={600} />;
 }
 ```
+
+## Demo
+
+![demo](./assets/react-zpl-renderer.png)
