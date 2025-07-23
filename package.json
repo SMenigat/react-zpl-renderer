@@ -1,0 +1,43 @@
+{
+  "name": "react-zpl-renderer",
+  "version": "0.0.1",
+  "source": "src/index.tsx",
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "types": "dist/types.d.ts",
+  "targets": {
+    "main": {
+      "context": "node",
+      "includeNodeModules": {
+        "zpl-js": true
+      }
+    },
+    "module": {
+      "context": "browser",
+      "includeNodeModules": {
+        "zpl-js": true
+      }
+    }
+  },
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "rimraf dist && parcel build"
+  },
+  "devDependencies": {
+    "@parcel/packager-ts": "2.15.4",
+    "@parcel/transformer-typescript-tsc": "^2.15.4",
+    "@parcel/transformer-typescript-types": "2.15.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "parcel": "^2.15.4",
+    "react": "^19",
+    "react-dom": "^19",
+    "rimraf": "^6.0.1",
+    "typescript": ">=3.0.0",
+    "zpl-js": "^0.1.5"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}
