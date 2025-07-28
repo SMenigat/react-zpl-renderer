@@ -23,6 +23,9 @@ jobs:
       - name: lint code
         run: yarn lint
 
+      - name: test
+        run: yarn test:run
+
       - name: Build package
         run: yarn build
 
