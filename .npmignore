@@ -1,0 +1,15 @@
+# Test files
+*.spec.tsx
+*.spec.ts
+*.test.tsx
+*.test.ts
+
+# Development files
+cypress/
+src/
+!dist/
+
+# Config files
+*.config.js
+*.config.ts
+tsconfig.json

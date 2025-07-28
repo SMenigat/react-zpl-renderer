@@ -16,8 +16,9 @@
     "declaration": true,
     "outDir": "dist",
     "jsx": "react-jsx",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "types": ["cypress", "node"]
   },
-  "include": ["src", "node_modules/zpl-js/src"],
+  "include": ["src", "node_modules/zpl-js/src", "cypress/support/component.ts"],
   "exclude": ["dist", "node_modules", "!node_modules/zpl-js/src"]
 }
